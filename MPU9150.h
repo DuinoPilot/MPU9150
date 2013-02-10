@@ -1,4 +1,9 @@
-/** Register Map for Accel & Gyro **/
+/** Device Addresses (7 bit) **/
+#define MPU9150_ADD_AD0_LOW		0x68
+#define MPU9150_ADD_AD0_HIGH	0x69
+#define MPU9150_ADD_DEFAULT		MPU_ADD_AD0_LOW
+
+/** Register Addresses for Accel & Gyro **/
 #define MPU9150_REG_SELF_TEST_X		0x0d
 #define MPU9150_REG_SELF_TEST_Y		0x0e
 #define MPU9150_REG_SELF_TEST_Z		0x0f
@@ -104,7 +109,7 @@
 
 #define MPU9150_REG_WHO_AM_I			0x75
 
-/** Register Map for Mag **/
+/** Register Addreses for Mag **/
 #define MPU9150_REG_WIA		0x00
 #define MPU9150_REG_INFO	0x01
 #define MPU9150_REG_ST1		0x02
