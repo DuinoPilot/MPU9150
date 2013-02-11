@@ -349,6 +349,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MPU9150_STBY_YG			0b00000010
 #define MPU9150_STBY_ZG			0b00000001
 
+// Magnetometer
+#define MPU9150_MAG_DRDY		0b00000001
+#define MPU9150_MAG_HOFL		0b00001000
+#define MPU9150_MAG_DERR		0b00000100
+#define MPU9150_MAG_POWER_DOWN	0b00000000
+#define MPU9150_MAG_MEASURE		0b00000001
+#define MPU9150_MAG_SELF_TEST	0b00001000
+#define MPU9150_MAG_FUSE_ROM	0b00001111
+#define MPU9150_MAG_ASTC_SELF	0b01000000
+#define MPU9150_MAG_I2C_DISABLE	0b00000001
+
 class MPU9150{
 	public:
 		MPU9150();
@@ -466,6 +477,30 @@ class MPU9150{
 		void setFIFO(uint8_t data);
 		
 		uint8_t getDeviceID();
+		
+		// Magnetometer
+		uint8_t getMagnetometerID();
+		uint8_t getMagnetometerInfo();
+		uint8_t getMagnetometerStatus1();
+		uint8_t getMagnetometerStatus2();
+		
+		int16_t getMagX();
+		int16_t getMagY();
+		int16_t getMagZ();
+		
+		uint8_t getMagControl();
+		void setMagControl(uint8_t config);
+		uint8_t getMagASTC();
+		void setMagASTC(uint8_t config);
+		bool getMagI2CDisable();
+		void setMagI2CDisable(bool disable);
+		
+		uint8_t getMagASAX();
+		void setMagASAX(uint8_t data);
+		uint8_t getMagASAY();
+		void setMagASAY(uint8_t data);
+		uint8_t getMagASAZ();
+		void setMagASAZ(uint8_t data);
 		
 	private:
 		uint8_t deviceAddress;
