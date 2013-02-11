@@ -160,10 +160,312 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MPU9150_REG_ASAY	0x11
 #define MPU9150_REG_ASAZ	0x12
 
+/** Bit Masks (or together) **/
+// Config
+#define MPU9150_EXT_SYNC_DISABLED	0b00000000
+#define MPU9150_EXT_SYNC_TEMP_OUT	0b00001000
+#define MPU9150_EXT_SYNC_GYRO_XOUT	0b00010000
+#define MPU9150_EXT_SYNC_GYRO_YOUT	0b00011000
+#define MPU9150_EXT_SYNC_GYRO_ZOUT	0b00100000
+#define MPU9150_EXT_SYNC_ACCEL_XOUT	0b00101000
+#define MPU9150_EXT_SYNC_ACCEL_YOUT	0b00110000
+#define MPU9150_EXT_SYNC_ACCEL_ZOUT	0b00111000
+#define MPU9150_DLPF_CFG_0	0b00000000	// Accel:260Hz, Gyro:256Hz, Fs:8kHz
+#define MPU9150_DLPF_CFG_1	0b00000001	// Accel:184Hz, Gyro:188Hz, Fs:1kHz
+#define MPU9150_DLPF_CFG_2	0b00000010	// Accel:94Hz, Gyro:98Hz, Fs:1kHz
+#define MPU9150_DLPF_CFG_3	0b00000011	// Accel:44Hz, Gyro:42Hz, Fs:1kHz
+#define MPU9150_DLPF_CFG_4	0b00000100	// Accel:21Hz, Gyro:20Hz, Fs:1kHz
+#define MPU9150_DLPF_CFG_5	0b00000101	// Accel:10Hz, Gyro:10Hz, Fs:1kHz
+#define MPU9150_DLPF_CFG_6	0b00000110	// Accel:5Hz, Gyro:5Hz, Fs:1kHz
+#define MPU9150_DLPF_CFG_7	0b00000111	// Fs: 8kHz, No filter
+
+// Gyro Config
+#define MPU9150_XG_ST	0b10000000
+#define MPU9150_YG_ST	0b01000000
+#define MPU9150_ZG_ST	0b00100000
+#define MPU9150_FS_SEL_250	0b00000000
+#define MPU9150_FS_SEL_500	0b00001000
+#define MPU9150_FS_SEL_1000	0b00010000
+#define MPU9150_FS_SEL_2000	0b00011000
+
+// Accel Config
+#define MPU9150_XA_ST	0b10000000
+#define MPU9150_YA_ST	0b01000000
+#define MPU9150_ZA_ST	0b00100000
+#define MPU9150_AFS_SEL_2	0b00000000
+#define MPU9150_AFS_SEL_4	0b00001000
+#define MPU9150_AFS_SEL_8	0b00010000
+#define MPU9150_AFS_SEL_16	0b00011000
+#define MPU9150_DHPF_OFF	0b00000000
+#define MPU9150_DHPF_5		0b00000001
+#define MPU9150_DHPF_2_5	0b00000010
+#define MPU9150_DHPF_1_25	0b00000011
+#define MPU9150_DHPF_0_63	0b00000100
+#define MPU9150_DHPF_HOLD	0b00000111
+
+// Fifo Enable
+#define MPU9150_FIFO_TEMP_EN	0b10000000
+#define MPU9150_FIFO_XG_EN		0b01000000
+#define MPU9150_FIFO_YG_EN		0b00100000
+#define MPU9150_FIFO_ZG_EN		0b00010000
+#define MPU9150_FIFO_ACCEL_EN	0b00001000
+#define MPU9150_FIFO_SLV2_EN	0b00000100
+#define MPU9150_FIFO_SLV1_EN	0b00000010
+#define MPU9150_FIFO_SLV0_EN	0b00000001
+
+// I2C Master Control
+#define MPU9150_MULT_MST_EN		0b10000000
+#define MPU9150_WAIT_FOR_ES		0b01000000
+#define MPU9150_SLV3_FIFO_EN	0b00100000
+#define MPU9150_I2C_MST_P_NSR	0b00010000
+#define MPU9150_I2C_MST_CLK_348	0b00000000
+#define MPU9150_I2C_MST_CLK_333	0b00000001
+#define MPU9150_I2C_MST_CLK_320 0b00000010
+#define MPU9150_I2C_MST_CLK_308	0b00000011
+#define MPU9150_I2C_MST_CLK_296	0b00000100
+#define MPU9150_I2C_MST_CLK_286	0b00000101
+#define MPU9150_I2C_MST_CLK_276	0b00000110
+#define MPU9150_I2C_MST_CLK_267	0b00000111
+#define MPU9150_I2C_MST_CLK_258	0b00001000
+#define MPU9150_I2C_MST_CLK_500	0b00001001
+#define MPU9150_I2C_MST_CLK_471	0b00001010
+#define MPU9150_I2C_MST_CLK_444	0b00001011
+#define MPU9150_I2C_MST_CLK_421	0b00001100
+#define MPU9150_I2C_MST_CLK_400	0b00001101
+#define MPU9150_I2C_MST_CLK_381	0b00001110
+#define MPU9150_I2C_MST_CLK_364	0b00001111
+
+// I2C Slave Control
+#define MPU9150_I2C_SLV_READ	0b10000000
+#define MPU9150_I2C_SLV_WRITE	0b00000000
+#define MPU9150_I2C_SLV_EN		0b10000000
+#define MPU9150_I2C_SLV_BYTE_SW	0b01000000
+#define MPU9150_I2C_SLV_REG_DIS	0b00100000
+#define MPU9150_I2C_SLV_GRP		0b00010000
+#define MPU9150_I2C_SLV4_INT_EN	0b01000000
+
+// I2C Master Status
+#define MPU9150_I2C_MASTER_PASS_THRU	0b10000000
+#define MPU9150_I2C_MASTER_SLV4_DONE	0b01000000
+#define MPU9150_I2C_MASTER_LOST_ARB		0b00100000
+#define MPU9150_I2C_MASTER_SLV4_NACK	0b00010000
+#define MPU9150_I2C_MASTER_SLV3_NACK	0b00001000
+#define MPU9150_I2C_MASTER_SLV2_NACK	0b00000100
+#define MPU9150_I2C_MASTER_SLV1_NACK	0b00000010
+#define MPU9150_I2C_MASTER_SLV0_NACK	0b00000001
+
+// Interrupt Pin Config
+#define MPU9150_INT_PIN_LEVEL_HIGH		0b00000000
+#define MPU9150_INT_PIN_LEVEL_LOW		0b10000000
+#define MPU9150_INT_PIN_PUSH_PULL		0b00000000
+#define MPU9150_INT_PIN_OPEN_DRAIN		0b01000000
+#define MPU9150_INT_PIN_LATCH_EN		0b00100000
+#define MPU9150_INT_PIN_LATCH_DIS		0b00000000
+#define MPU9150_INT_PIN_RD_CLEAR_EN		0b00010000
+#define MPU9150_INT_PIN_RD_CLEAR_DIS	0b00000000
+#define MPU9150_INT_PIN_FSYNC_LEVEL_HIGH	0b00000000
+#define MPU9150_INT_PIN_FSYNC_LEVEL_LOW		0b00001000
+#define MPU9150_INT_PIN_FSYNC_INT_EN	0b00000100
+#define MPU9150_INT_PIN_FSYNC_INT_DIS	0b00000000
+#define MPU9150_I2C_BYPASS_EN			0b00000010
+#define MPU9150_I2C_BYPASS_DIS			0b00000000
+#define MPU9150_CLKOUT_EN				0b00000001
+#define MPU9150_CLKOUT_DIS				0b00000000
+
+// Interrupt Enable Config
+#define MPU9150_INT_FF			0b10000000
+#define MPU9150_INT_MOT			0b01000000
+#define MPU9150_INT_ZMO			0b00100000
+#define MPU9150_INT_FIFO_OFLOW	0b00010000
+#define MPU9150_INT_I2C_MST		0b00001000
+#define MPU9150_INT_DATA_RDY	0b00000001
+
+// Motion Detection Status
+#define MPU9150_MOT_XNEG	0b10000000
+#define MPU9150_MOT_XPOS	0b01000000
+#define MPU9150_MOT_YNEG	0b00100000
+#define MPU9150_MOT_YPOS	0b00010000
+#define MPU9150_MOT_ZNEG	0b00001000
+#define MPU9150_MOT_ZPOS	0b00000100
+#define MPU9150_MOT_ZRMOT	0b00000001
+
+// I2C Master Delay Control
+#define MPU9150_I2C_DELAY_ES_SHADOW	0b10000000
+#define MPU9150_I2C_DELAY_SLV4_EN	0b00010000
+#define MPU9150_I2C_DELAY_SLV3_EN	0b00001000
+#define MPU9150_I2C_DELAY_SLV2_EN	0b00000100
+#define MPU9150_I2C_DELAY_SLV1_EN	0b00000010
+#define MPU9150_I2C_DELAY_SLV0_EN	0b00000001
+
+// Signal Path Reset
+#define MPU9150_RESET_GYRO	0b00000100
+#define MPU9150_RESET_ACCEL	0b00000010
+#define MPU9150_RESET_TEMP	0b00000001
+
+// Motion Detection Control
+#define MPU9150_ACCEL_ON_DLY_0	0b00000000
+#define MPU9150_ACCEL_ON_DLY_1	0b00010000
+#define MPU9150_ACCEL_ON_DLY_2	0b00100000
+#define MPU9150_ACCEL_ON_DLY_3	0b00110000
+#define MPU9150_FF_COUNT_RESET	0b00000000
+#define MPU9150_FF_COUNT_1		0b00000100
+#define MPU9150_FF_COUNT_2		0b00001000
+#define MPU9150_FF_COUNT_3		0b00001100
+#define MPU9150_MOT_COUNT_RESET	0b00000000
+#define MPU9150_MOT_COUNT_1		0b00000001
+#define MPU9150_MOT_COUNT_2		0b00000010
+#define MPU9150_MOT_COUNT_3		0b00000011
+
+// User control
+#define MPU9150_FIFO_EN			0b01000000
+#define MPU9150_I2C_MST_EN		0b00100000
+#define MPU9150_I2C_IF_DIS		0b00000000
+#define MPU9150_FIFO_RESET		0b00000100
+#define MPU9150_I2C_MST_RESET	0b00000010
+#define MPU9150_SIG_COND_RESET	0b00000001
+
+// Power Management 1
+#define MPU9150_DEVICE_RESET	0b10000000
+#define MPU9150_SLEEP			0b01000000
+#define MPU9150_CYCLE			0b00100000
+#define MPU9150_TEMP_DIS		0b00001000
+#define MPU9150_CLK_INTERNAL	0b00000000
+#define MPU9150_CLK_XGYRO		0b00000001
+#define MPU9150_CLK_YGYRO		0b00000010
+#define MPU9150_CLK_ZGYRO		0b00000011
+#define MPU9150_CLK_EXT_32K		0b00000100
+#define MPU9150_CLK_EXT_19M		0b00000101
+#define MPU9150_CLK_STOP		0b00000111
+
+// Power Management 2
+#define MPU9150_LP_WAKE_1_25	0b00000000
+#define MPU9150_LP_WAKE_5		0b01000000
+#define MPU9150_LP_WAKE_20		0b10000000
+#define MPU9150_LP_WAKE_40		0b11000000
+#define MPU9150_STBY_XA			0b00100000
+#define MPU9150_STBY_YA			0b00010000
+#define MPU9150_STBY_ZA			0b00001000
+#define MPU9150_STBY_XG			0b00000100
+#define MPU9150_STBY_YG			0b00000010
+#define MPU9150_STBY_ZG			0b00000001
+
 class MPU9150{
 	public:
 		MPU9150();
 		MPU9150(uint8_t address);
+		
+		bool testConnection();
+		
+		void getSelfTestTrim(uint8_t * xa, uint8_t * ya, uint8_t * za, uint8_t * xg, uint8_t * yg, uint8_t * zg);
+		
+		uint8_t getSampleRateDivider();
+		void setSampleRateDivider(uint8_t div);
+		
+		uint8_t getConfig();
+		void setConfig(uint8_t config);
+		uint8_t getGyroConfig();
+		void setGyroConfig(uint8_t config);
+		uint8_t getAccelConfig();
+		void setAccelConfig(uint8_t config);
+		
+		uint8_t getFreefallThreshold();
+		void setFreefallThreshold(uint8_t thr);
+		uint8_t getFreefallDuration();
+		void setFreefallDuration(uint8_t dur);
+		uint8_t getMotionThreshold();
+		void setMotionThreshold(uint8_t thr);
+		uint8_t getMotionDuration();
+		void setMotionDuration(uint8_t dur);
+		uint8_t getZeroMotionThreshold();
+		void setZeroMotionThreshold(uint8_t thr);
+		uint8_t getZeroMotionDuration();
+		void setZeroMotionDuration(uint8_t dur);
+		
+		uint8_t getFifoEn();
+		void setFifoEn(uint8_t config);
+		uint8_t getI2CMasterControl();
+		void setI2CMasterControl(uint8_t config);
+		uint8_t getI2CSlave0Address();
+		void setI2CSlave0Address(uint8_t addr);
+		uint8_t getI2CSlave0Register();
+		void setI2CSlave0Register(uint8_t ra);
+		uint8_t getI2CSlave0Control();
+		void setI2CSlave0Control(uint8_t config);
+		uint8_t getI2CSlave1Address();
+		void setI2CSlave1Address(uint8_t addr);
+		uint8_t getI2CSlave1Register();
+		void setI2CSlave1Register(uint8_t ra);
+		uint8_t getI2CSlave1Control();
+		void setI2CSlave1Control(uint8_t config);
+		uint8_t getI2CSlave2Address();
+		void setI2CSlave2Address(uint8_t addr);
+		uint8_t getI2CSlave2Register();
+		void setI2CSlave2Register(uint8_t ra);
+		uint8_t getI2CSlave2Control();
+		void setI2CSlave2Control(uint8_t config);
+		uint8_t getI2CSlave3Address();
+		void setI2CSlave3Address(uint8_t addr);
+		uint8_t getI2CSlave3Register();
+		void setI2CSlave3Register(uint8_t ra);
+		uint8_t getI2CSlave3Control();
+		void setI2CSlave3Control(uint8_t config);
+		uint8_t getI2CSlave4Address();
+		void setI2CSlave4Address(uint8_t addr);
+		uint8_t getI2CSlave4Register();
+		void setI2CSlave4Register(uint8_t ra);
+		uint8_t getI2CSlave4DataOut();
+		void setI2CSlave4DataOut(uint8_t data);
+		uint8_t getI2CSlave4Control();
+		void setI2CSlave4Control(uint8_t config);
+		uint8_t getI2CSlave4DataIn();
+		void setI2CSlave4DataIn(uint8_t data);
+		uint8_t getI2CMasterStatus();
+		
+		uint8_t getInterruptPinConfig();
+		void setInterruptPinConfig(uint8_t config);
+		uint8_t getInterruptConfig();
+		void setInterruptConfig(uint8_t config);
+		uint8_t getInterruptStatus();
+		
+		int16_t getAccelX();
+		int16_t getAccelY();
+		int16_t getAccelZ();
+		int16_t getTemp();
+		int16_t getGyroX();
+		int16_t getGyroY();
+		int16_t getGyroZ();
+		
+		//TODO Slave data readout
+		
+		uint8_t getMotionDetectionStatus();
+		
+		uint8_t getI2CSlave0DataOut();
+		void setI2CSlave0DataOut(uint8_t data);
+		uint8_t getI2CSlave1DataOut();
+		void setI2CSlave1DataOut(uint8_t data);
+		uint8_t getI2CSlave2DataOut();
+		void setI2CSlave2DataOut(uint8_t data);
+		uint8_t getI2CSlave3DataOut();
+		void setI2CSlave3DataOut(uint8_t data);
+		uint8_t getI2CMasterDelayControl();
+		void setI2CMasterDelayControl(uint8_t config);
+		
+		void setSignalPathReset(uint8_t config);
+		
+		uint8_t getMotionDetectionControl();
+		void setMotionDetectionControl(uint8_t config);
+		uint8_t getUserControl();
+		void setUserControl(uint8_t config);
+		uint8_t getPowerManagement1();
+		void setPowerManagement1(uint8_t config);
+		uint8_t getPowerManagment2();
+		void setPowerManagement2(uint8_t config);
+		
+		uint16_t getFIFOCount();
+		uint8_t getFIFO();
+		void setFIFO(uint8_t data);
+		
+		uint8_t getDeviceID();
 		
 	private:
 		uint8_t deviceAddress;
