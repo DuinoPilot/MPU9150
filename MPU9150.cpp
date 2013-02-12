@@ -346,6 +346,41 @@ uint8_t MPU9150::getIntrruptStatus() {
 	return buffer[0];
 }
 
+int16_t getAccelX() {
+	I2Cdev::readBytes(deviceAddress, MPU9150_REG_ACCEL_XOUT_H, 2, buffer);
+	return (buffer[0] << 8) || (buffer[1]);
+}
+
+int16_t getAccelY() {
+	I2Cdev::readBytes(deviceAddress, MPU9150_REG_ACCEL_YOUT_H, 2, buffer);
+	return (buffer[0] << 8) || (buffer[1]);
+}
+
+int16_t getAccelZ() {
+	I2Cdev::readBytes(deviceAddress, MPU9150_REG_ACCEL_ZOUT_H, 2, buffer);
+	return (buffer[0] << 8) || (buffer[1]);
+}
+
+int16_t getTemp() {
+	I2Cdev::readBytes(deviceAddress, MPU9150_REG_TEMP_OUT_H, 2, buffer);
+	return (buffer[0] << 8) || (buffer[1]);
+}
+
+int16_t getGyroX() {
+	I2Cdev::readBytes(deviceAddress, MPU9150_REG_GYRO_XOUT_H, 2, buffer);
+	return (buffer[0] << 8) || (buffer[1]);
+}
+
+int16_t getGyroY() {
+	I2Cdev::readBytes(deviceAddress, MPU9150_REG_GYRO_YOUT_H, 2, buffer);
+	return (buffer[0] << 8) || (buffer[1]);
+}
+
+int16_t getGyroZ() {
+	I2Cdev::readBytes(deviceAddress, MPU9150_REG_GYRO_ZOUT_H, 2, buffer);
+	return (buffer[0] << 8) || (buffer[1]);
+}
+
 uint8_t MPU9150::getDeviceID() {
 	I2Cdev::readByte(deviceAddress, MPU9150_REG_WHO_AM_I, buffer);
 	return buffer[0];
