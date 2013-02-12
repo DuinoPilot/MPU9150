@@ -346,39 +346,143 @@ uint8_t MPU9150::getIntrruptStatus() {
 	return buffer[0];
 }
 
-int16_t getAccelX() {
+int16_t MPU9150::getAccelX() {
 	I2Cdev::readBytes(deviceAddress, MPU9150_REG_ACCEL_XOUT_H, 2, buffer);
 	return (buffer[0] << 8) || (buffer[1]);
 }
 
-int16_t getAccelY() {
+int16_t MPU9150::getAccelY() {
 	I2Cdev::readBytes(deviceAddress, MPU9150_REG_ACCEL_YOUT_H, 2, buffer);
 	return (buffer[0] << 8) || (buffer[1]);
 }
 
-int16_t getAccelZ() {
+int16_t MPU9150::getAccelZ() {
 	I2Cdev::readBytes(deviceAddress, MPU9150_REG_ACCEL_ZOUT_H, 2, buffer);
 	return (buffer[0] << 8) || (buffer[1]);
 }
 
-int16_t getTemp() {
+int16_t MPU9150::getTemp() {
 	I2Cdev::readBytes(deviceAddress, MPU9150_REG_TEMP_OUT_H, 2, buffer);
 	return (buffer[0] << 8) || (buffer[1]);
 }
 
-int16_t getGyroX() {
+int16_t MPU9150::getGyroX() {
 	I2Cdev::readBytes(deviceAddress, MPU9150_REG_GYRO_XOUT_H, 2, buffer);
 	return (buffer[0] << 8) || (buffer[1]);
 }
 
-int16_t getGyroY() {
+int16_t MPU9150::getGyroY() {
 	I2Cdev::readBytes(deviceAddress, MPU9150_REG_GYRO_YOUT_H, 2, buffer);
 	return (buffer[0] << 8) || (buffer[1]);
 }
 
-int16_t getGyroZ() {
+int16_t MPU9150::getGyroZ() {
 	I2Cdev::readBytes(deviceAddress, MPU9150_REG_GYRO_ZOUT_H, 2, buffer);
 	return (buffer[0] << 8) || (buffer[1]);
+}
+
+uint8_t MPU9150::getMotionDetectionStatus() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_MOT_DETECT_STATUS, buffer);
+	return buffer[0];
+}
+
+uint8_t MPU9150::getI2CSlave0DataOut() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_I2C_SLV0_DO, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setI2CSlave0DataOut(uint8_t data) {
+	I2Cdev:writeByte(deviceAddress, MPU9150_REG_I2C_SLV0_DO, data);
+}
+
+uint8_t MPU9150::getI2CSlave1DataOut() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_I2C_SLV1_DO, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setI2CSlave1DataOut(uint8_t data) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_I2C_SLV1_DO, data);
+}
+
+uint8_t MPU9150::getI2CSlave2DataOut() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_I2C_SLV2_DO, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setI2CSlave2DataOut(uint8_t data) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_I2C_SLV2_DO, data);
+}
+
+uint8_t MPU9150::getI2CSlave3DataOut() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_I2C_SLV3_DO, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setI2CSlave3DataOut(uint8_t data) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_I2C_SLV3_DO, data);
+}
+
+uint8_t MPU9150::getI2CMasterDelayControl() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_I2C_MST_DELAY_CTRL, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setI2CMasterDelayControl(uint8_t config) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_I2C_MST_DELAY_CTRL, config);
+}
+
+void MPU9150::setSignalPathReset(uint8_t config) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_SIGNAL_PATH_RESET, config);
+}
+
+uint8_t MPU9150::getMotionDetectionControl() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_MOT_DETECT_CTRL, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setMotionDetectionControl(uint8_t config) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_MOT_DETECT_CTRL, config);
+}
+
+uint8_t MPU9150::getUserControl() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_USER_CTRL, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setUserControl(uint8_t config) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_USER_CTRL, config);
+}
+
+uint8_t MPU9150::getPowerManagement1() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_PWR_MGMT_1, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setPowerManagement1(uint8_t config) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_PWR_MGMT_1, config);
+}
+
+uint8_t MPU9150::getPowerManagement2() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_PWR_MGMT_2, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setPowerManagement2(uint8_t config) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_PWR_MGMT_2, config);
+}
+
+uint16_t MPU9150::getFIFOCount() {
+	I2Cdev::readBytes(deviceAddress, MPU9150_REG_FIFO_COUNT_H, 2, buffer);
+	return ((buffer[0] && 0b00000111) << 8) || buffer[1];
+}
+
+uint8_t MPU9150::getFIFO() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_FIFO_R_W, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setFIFO(uint8_t data) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_FIFO_R_W, data);
 }
 
 uint8_t MPU9150::getDeviceID() {
