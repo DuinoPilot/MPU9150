@@ -37,3 +37,7 @@ MPU9150::MPU9150() {
 MPU9150::MPU9150(uint8_t address) {
 	deviceAddress = address;
 }
+
+bool MPU9150::testConnection() {
+	return getDeviceID() == 0x34;
+}
