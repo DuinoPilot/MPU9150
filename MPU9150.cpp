@@ -318,8 +318,31 @@ void MPU9150::setI2CSlave4DataIn(uint8_t data) {
 	I2Cdev::writeBuffer(deviceAddress, MPU9150_REG_I2C_SLV4_DI, data);
 }
 
-uint8_t getI2CMasterStatus() {
+uint8_t MPU9150::getI2CMasterStatus() {
 	I2Cdev::readByte(deviceAddress, MPU9150_REG_I2C_MST_STATUS, buffer);
+	return buffer[0];
+}
+
+uint8_t MPU9150::getInterruptPinConfig() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_INT_PIN_CFG, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setIntrruptPinConfig(uint8_t config) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_INT_PIN_CFG, config);
+}
+
+uint8_t MPU9150::getInterruptConfig() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_INT_ENABLE, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setIntrruptConfig(uint8_t config) {
+	I2Cdev::writeByte(deviceAddress, MPU9150_REG_INT_ENABLE, config);
+}
+
+uint8_t MPU9150::getIntrruptStatus() {
+	I2Cdev::readByte(deviceAddress, MPU9150_REG_INT_STATUS, buffer);
 	return buffer[0];
 }
 
