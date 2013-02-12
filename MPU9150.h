@@ -1,4 +1,4 @@
-/***********************************************
+/************************************************
 
 Invensense MPU-9150 Library for ChipKit
 https://github.com/AerodyneLabs/MPU9150
@@ -19,10 +19,14 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-***********************************************/
+************************************************/
+// Requires JRowberg's I2Cdev library
+// https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/I2Cdev
 
 #ifndef MPU9150_H
 #define MPU9150_H
+
+#include "I2Cdev.h"
 
 /** Device Addresses (7 bit) **/
 #define MPU9150_ADD_AD0_LOW		0x68
@@ -160,7 +164,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MPU9150_REG_ASAY	0x11
 #define MPU9150_REG_ASAZ	0x12
 
-/** Bit Masks (or together) **/
+/** Bit Masks (OR together) **/
+// Self Test Trim
+#define MPU9150_GYRO_TRIM		0b00011111
+#define MPU9150_ACCEL_TRIM_HIGH	0b11100000
+#define MPU9150_XACCEL_TRIM_LOW	0b00110000
+#define MPU9150_YACCEL_TRIM_LOW	0b00001100
+#define MPU9150_ZACCEL_TRIM_LOW	0b00000011
+
 // Config
 #define MPU9150_EXT_SYNC_DISABLED	0b00000000
 #define MPU9150_EXT_SYNC_TEMP_OUT	0b00001000
@@ -367,7 +378,7 @@ class MPU9150{
 		
 		bool testConnection();
 		
-		void getSelfTestTrim(uint8_t * xa, uint8_t * ya, uint8_t * za, uint8_t * xg, uint8_t * yg, uint8_t * zg);
+		void getSelfTestTrim(uint8_t *xa, uint8_t *ya, uint8_t *za, uint8_t *xg, uint8_t *yg, uint8_t *zg);
 		
 		uint8_t getSampleRateDivider();
 		void setSampleRateDivider(uint8_t div);
@@ -504,6 +515,7 @@ class MPU9150{
 		
 	private:
 		uint8_t deviceAddress;
+		uint8_t buffer[8];
 }
 
 #endif
