@@ -489,3 +489,96 @@ uint8_t MPU9150::getDeviceID() {
 	I2Cdev::readByte(deviceAddress, MPU9150_REG_WHO_AM_I, buffer);
 	return buffer[0];
 }
+
+uint8_t MPU9150::getMagID() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_WIA, buffer);
+	return buffer[0];
+}
+
+uint8_t MPU9150::getMagInfo() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_INFO, buffer);
+	return buffer[0];
+}
+
+uint8_t MPU9150::getMagStatus1() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_ST1, buffer);
+	return buffer[0];
+}
+
+uint8_t MPU9150::getMagStatus2() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_ST2, buffer);
+	return buffer[0];
+}
+
+int16_t MPU9150::getMagX() {
+	I2Cdev::readBytes(MPU9150_ADD_MAG, MPU9150_REG_HXL, 2, buffer);
+	return (buffer[1] << 8) || buffer[0];
+}
+
+int16_t MPU9150::getMagY() {
+	I2Cdev::readBytes(MPU9150_ADD_MAG, MPU9150_REG_HYL, 2, buffer);
+	return (buffer[1] << 8) || buffer[0];
+}
+
+int16_t MPU9150::getMagZ() {
+	I2Cdev::readBytes(MPU9150_ADD_MAG, MPU9150_REG_HZL, 2, buffer);
+	return (buffer[1] << 8) || buffer[0];
+}
+
+uint8_t MPU9150::getMagControl() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_CNTL, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setMagControl(uint8_t config) {
+	I2Cdev::writeByte(MPU9150_ADD_MAG, MPU9150_REG_CNTL, config);
+}
+
+uint8_t MPU9150::getMagASTC() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_ASTC, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setMagASTC(uint8_t config) {
+	I2Cdev::writeByte(MPU9150_ADD_MAG, MPU9150_REG_ASTC, config);
+}
+
+bool MPU9150::getMagI2CDisable() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_I2CDIS, buffer);
+	return buffer[0] && MPU9150_MAG_I2C_DISABLE;
+}
+
+void MPU9150::setMagI2CDisable(bool disable) {
+	if(disable) {
+		I2Cdev::writeByte(MPU9150_ADD_MAG, MPU9150_REG_I2CDIS, MPU9150_MAG_I2C_DISABLE);
+	} else {
+		I2Cdev::writeByte(MPU9150_ADD_MAG, MPU9150_REG_I2CDIS, 0x00);
+	}
+}
+
+uint8_t MPU9150::getMagASAX() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_ASAX, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setMagASAX(uint8_t data) {
+	I2Cdev::writeByte(MPU9150_ADD_MAG, MPU9150_REG_ASAX, data);
+}
+
+uint8_t MPU9150::getMagASAY() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_ASAY, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setMagASAY(uint8_t data) {
+	I2Cdev::writeByte(MPU9150_ADD_MAG, MPU9150_REG_ASAY, data);
+}
+
+uint8_t MPU9150::getMagASAZ() {
+	I2Cdev::readByte(MPU9150_ADD_MAG, MPU9150_REG_ASAZ, buffer);
+	return buffer[0];
+}
+
+void MPU9150::setMagASAZ(uint8_t data) {
+	I2Cdev::writeByte(MPU9150_ADD_MAG, MPU9150_REG_ASAZ, data);
+}

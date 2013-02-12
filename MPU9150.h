@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MPU9150_ADD_AD0_LOW		0x68
 #define MPU9150_ADD_AD0_HIGH	0x69
 #define MPU9150_ADD_DEFAULT		MPU_ADD_AD0_LOW
+#define MPU9150_ADD_MAG			0x0c
 
 /** Register Addresses for Accel & Gyro **/
 #define MPU9150_REG_SELF_TEST_X		0x0d
@@ -490,10 +491,10 @@ class MPU9150{
 		uint8_t getDeviceID();
 		
 		// Magnetometer
-		uint8_t getMagnetometerID();
-		uint8_t getMagnetometerInfo();
-		uint8_t getMagnetometerStatus1();
-		uint8_t getMagnetometerStatus2();
+		uint8_t getMagID();
+		uint8_t getMagInfo();
+		uint8_t getMagStatus1();
+		uint8_t getMagStatus2();
 		
 		int16_t getMagX();
 		int16_t getMagY();
